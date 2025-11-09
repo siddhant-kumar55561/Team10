@@ -1,5 +1,10 @@
 import arcade
 
+def stopped(game):
+    # Only check movement keys
+    movement_keys = ["W", "A", "S", "D"]
+    return all(not game.active_keys[k] for k in movement_keys)
+
 def handle_key_press(game, key):
     if key == arcade.key.W: game.active_keys["W"] = True
     elif key == arcade.key.S: game.active_keys["S"] = True

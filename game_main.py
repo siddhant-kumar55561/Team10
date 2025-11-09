@@ -34,12 +34,13 @@ class GameView(arcade.View):
 
         # === Player ===
         self.player_list = arcade.SpriteList()
-        # placeholder single sprite
+
+        # placeholder single sprite, SHOULD NOT MATTER IF ANIMATION WORKS AS IT SHOULD
         self.player_sprite = arcade.Sprite(
             "C:/MyGames/pythonGame/assets/playerWalk/playerWalkDown/playerWalkDown1.png", scale=1.0
         )
 
-        self.current_direction = "right"
+        self.current_direction = "down"
         self.current_frame = 0
         self.animation_speed = 0.15  # smaller = faster animation
         self.time_since_last_frame = 0
@@ -76,7 +77,9 @@ class GameView(arcade.View):
 
         # Start position
         self.player_sprite.center_x = 960
+        self.dx = 0
         self.player_sprite.center_y = 540
+        self.dy = 0
         self.player_list.append(self.player_sprite)
 
         self.key_map = {
@@ -91,9 +94,12 @@ class GameView(arcade.View):
                 "W": False,
                 "A": False,
                 "S": False,
-                "D": False,
-                "ESC": False
+                "D": False
             }
+        
+        self.misc_active_keys = {
+                "ESC": False
+        }
 
 
         # Optional: state tracking for animation
@@ -114,6 +120,7 @@ class GameView(arcade.View):
 
     def on_update(self, delta_time):
         update.handle_update(self)
+        update.handle_animation(self, delta_time)
 
 
 class PauseView(arcade.View):
