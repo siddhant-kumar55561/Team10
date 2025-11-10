@@ -1,36 +1,26 @@
 import arcade # make sure to install arcade
 import controls # type: ignore
 import update # type: ignore
+from texture_files import player_walk_textures # type: ignore
+import background # type: ignore
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
 WINDOW_NAME = "Legend of the Legendary Hero"
 
-BG_TILE_SIZE = 294
-bg_scale_var = 0.5
-TILE_NUMBER_X = 10
-TILE_NUMBER_Y = 10
 
 class GameView(arcade.View):
     def __init__(self):
         super().__init__()
 
         # === Background ===
-        self.grass_list = arcade.SpriteList()
-        local_tile_size = BG_TILE_SIZE
-        local_tile_size *= bg_scale_var
-        local_tile_size = int(local_tile_size)
-        TILE_X = TILE_NUMBER_X * BG_TILE_SIZE
-        TILE_Y = TILE_NUMBER_Y * BG_TILE_SIZE
+        self.BG_TILE_SIZE = 294
+        self.bg_scale_var = 0.5
+        self.TILE_NUMBER_X = 10
+        self.TILE_NUMBER_Y = 10
 
-        for x in range(-TILE_X, TILE_X, local_tile_size):
-            for y in range(-TILE_Y, TILE_Y, local_tile_size):
-                grass = arcade.Sprite(
-                    "C:/MyGames/pythonGame/assets/background/grass2.png", scale=bg_scale_var
-                )
-                grass.center_x = x
-                grass.center_y = y
-                self.grass_list.append(grass)
+        background.handle_background(self)
+
 
         # === Player ===
         self.player_list = arcade.SpriteList()
@@ -39,42 +29,14 @@ class GameView(arcade.View):
         self.player_sprite = arcade.Sprite(
             "C:/MyGames/pythonGame/assets/playerWalk/playerWalkDown/playerWalkDown1.png", scale=1.0
         )
+        
 
         self.current_direction = "down"
         self.current_frame = 0
         self.animation_speed = 0.15  # smaller = faster animation
         self.time_since_last_frame = 0
 
-        # --- Load player walk textures ---
-        # (organize animation frames in lists for easy cycling)
-        self.walk_up_textures = [
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkUp/playerWalkUp1.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkUp/playerWalkUp2.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkUp/playerWalkUp3.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkUp/playerWalkUp4.png"),
-        ]
-
-        self.walk_down_textures = [
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkDown/playerWalkDown1.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkDown/playerWalkDown2.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkDown/playerWalkDown3.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkDown/playerWalkDown4.png"),
-        ]
-
-        self.walk_left_textures = [
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkLeft/playerWalkLeft1.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkLeft/playerWalkLeft2.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkLeft/playerWalkLeft3.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkLeft/playerWalkLeft4.png"),
-        ]
-
-        self.walk_right_textures = [
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkRight/playerWalkRight1.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkRight/playerWalkRight2.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkRight/playerWalkRight3.png"),
-            arcade.load_texture("C:/MyGames/pythonGame/assets/playerWalk/playerWalkRight/playerWalkRight4.png"),
-        ]
-
+        
         # Start position
         self.player_sprite.center_x = 960
         self.dx = 0

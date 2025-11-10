@@ -1,5 +1,6 @@
 import arcade
 from controls import stopped # type: ignore
+import texture_files # type: ignore
 
 def handle_update(game):
     dx = game.dx
@@ -11,15 +12,19 @@ def handle_update(game):
     if game.active_keys["W"]:
         dy += speed
         game.current_direction = "up"
+        game.textures = texture_files.player_walk_textures["walk_up_textures"]
     if game.active_keys["S"]:
         dy -= speed
         game.current_direction = "down"
+        game.textures = texture_files.player_walk_textures["walk_down_textures"]
     if game.active_keys["A"]:
         dx -= speed
         game.current_direction = "left"
+        game.textures = texture_files.player_walk_textures["walk_left_textures"]
     if game.active_keys["D"]:
         dx += speed
         game.current_direction = "right"
+        game.textures = texture_files.player_walk_textures["walk_right_textures"]
 
 
     # Normalize diagonal speed
@@ -41,14 +46,14 @@ def handle_animation(game, delta_time):
         game.time_since_last_frame = 0
 
         # Get current animation list
-        if game.current_direction == "up":
-            game.textures = game.walk_up_textures
-        elif game.current_direction == "down":
-            game.textures = game.walk_down_textures
+        if game.current_direction == "down":
+            game.textures = texture_files.player_walk_textures["walk_down_textures"]
         elif game.current_direction == "left":
-            game.textures = game.walk_left_textures
+            game.textures = texture_files.player_walk_textures["walk_left_textures"]
         elif game.current_direction == "right":
-            game.textures = game.walk_right_textures
+            game.textures = texture_files.player_walk_textures["walk_right_textures"]
+        elif game.current_direction == "up":
+            game.textures = texture_files.player_walk_textures["walk_up_textures"]
 
         # Loop back to start if past last frame
         if game.current_frame >= len(game.textures):
