@@ -2,11 +2,12 @@ import arcade # make sure to install arcade
 import controls # type: ignore
 import update # type: ignore
 from texture_files import player_walk_textures # type: ignore
-import background # type: ignore
+import environment # type: ignore
+import map # type: ignore
 
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
-WINDOW_NAME = "Legend of the Legendary Hero"
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 360
+WINDOW_NAME = "Dungeon Priest"
 
 
 class GameView(arcade.View):
@@ -15,40 +16,40 @@ class GameView(arcade.View):
 
         # === Background ===
         self.BG_TILE_SIZE = 294
-        self.bg_scale_var = 0.5
+        self.bg_scale_var = 1
         self.TILE_NUMBER_X = 10
         self.TILE_NUMBER_Y = 10
-
-        background.handle_background(self)
-
 
         # === Player ===
         self.player_list = arcade.SpriteList()
 
-        # placeholder single sprite, SHOULD NOT MATTER IF ANIMATION WORKS AS IT SHOULD
-        self.player_sprite = arcade.Sprite(
-            "C:/MyGames/pythonGame/assets/playerWalk/playerWalkDown/playerWalkDown1.png", scale=1.0
-        )
-        
+        # Stamina attributes ( update.py )
+        self.stamina = True
+        self.stamina_bar = 100
 
+        # initialize player sprite
+        self.player_sprite = arcade.Sprite( "C:/MyGames/pythonGame/assets/playerWalk/playerWalkDown/playerWalkDown1.png", scale=1.0 )
+        self.player_list.append(self.player_sprite)
+        
+        # variables that help animation
         self.current_direction = "down"
         self.current_frame = 0
         self.animation_speed = 0.15  # smaller = faster animation
         self.time_since_last_frame = 0
 
-        
         # Start position
-        self.player_sprite.center_x = 960
+        self.player_sprite.center_x = self.window.width / 2
+        self.player_sprite.center_y = self.window.height / 2
         self.dx = 0
-        self.player_sprite.center_y = 540
         self.dy = 0
-        self.player_list.append(self.player_sprite)
 
+        # Key Map
         self.key_map = {
                 "W": arcade.key.W,
                 "A": arcade.key.A,
                 "S": arcade.key.S,
                 "D": arcade.key.D,
+                "SHIFT": arcade.key.LSHIFT,
                 "ESC": arcade.key.ESCAPE
             }
 
@@ -56,23 +57,19 @@ class GameView(arcade.View):
                 "W": False,
                 "A": False,
                 "S": False,
-                "D": False
-            }
-        
-        self.misc_active_keys = {
+                "D": False,
+                "SHIFT": False,
                 "ESC": False
-        }
+            }
 
-
-        # Optional: state tracking for animation
-        self.current_direction = "down"
-        self.current_frame = 0
-
+        map.handle_load_map(self)
 
     def on_draw(self):
-        self.clear()
-        self.grass_list.draw()
+        self.clear((37, 19, 26))
+        if self.scene:
+            self.scene.draw()
         self.player_list.draw()
+        self.camera.use()
 
     def on_key_press(self, key, modifiers):
         controls.handle_key_press(self, key)
@@ -80,9 +77,27 @@ class GameView(arcade.View):
     def on_key_release(self, key, modifiers):
         controls.handle_key_release(self, key)
 
+    def center_camera_to_player(self):
+        # Camera2D expects a 2D position tuple
+        player_center = (self.player_sprite.center_x, self.player_sprite.center_y)
+        self.camera.position = player_center
+
+        # TODO : make it smooth follow
+
+
+
     def on_update(self, delta_time):
-        update.handle_update(self)
+        if self.physics_engine:
+            self.physics_engine.update()
+        update.handle_update(self, delta_time)
         update.handle_animation(self, delta_time)
+
+        self.center_camera_to_player()
+
+    def setup(self):
+        """Initialize game world and load map."""
+        map.handle_load_map(self)
+        self.camera = arcade.Camera2D()
 
 
 class PauseView(arcade.View):
@@ -96,6 +111,8 @@ class PauseView(arcade.View):
     def on_draw(self):
         self.clear(arcade.color.RED)
         self.paused_text.draw()
+        self.camera.use()
+
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE:
@@ -103,8 +120,9 @@ class PauseView(arcade.View):
 
 
 def main():
-    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME, fullscreen=True, antialiasing=False)
+    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME, fullscreen=True, antialiasing=False, resizable=True)
     start_view = GameView()
+    start_view.setup()
     window.show_view(start_view)
     arcade.run()
 
