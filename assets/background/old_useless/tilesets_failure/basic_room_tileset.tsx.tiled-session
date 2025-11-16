@@ -1,0 +1,126 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "#Dungeon_Tileset_main": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "#level1_basic": {
+            "scaleInDock": 1
+        },
+        "Dungeon_Tileset_main.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level1_basic": {
+            "scaleInDock": 1
+        },
+        "level1_basic.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level1_basic2": {
+            "scaleInDock": 1
+        },
+        "level1_basic2.tsx": {
+            "scaleInDock": 1
+        },
+        "level1_map.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1023,
+                "y": 960
+            }
+        },
+        "level1_map.tmx#Dungeon_Tileset_main": {
+            "scaleInDock": 0.5
+        },
+        "level1_map.tmx#level1_basic": {
+            "scaleInDock": 1
+        },
+        "level1_map.tmx#main_tileset": {
+            "scaleInDock": 1
+        },
+        "level1b_map.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 967,
+                "y": 678
+            }
+        },
+        "level1c_map.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1636,
+                "y": 1908
+            }
+        },
+        "level1c_map.tmx#level1_basic": {
+            "scaleInDock": 0.75
+        },
+        "realgoodmap.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2444.6666666666665,
+                "y": 623.3333333333334
+            }
+        },
+        "realgoodmap.tmx#level1_basic": {
+            "scaleInDock": 1
+        },
+        "thisisit.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1706,
+                "y": 1682
+            }
+        },
+        "thisisit.tmx#Dungeon_Tileset_main": {
+            "scaleInDock": 1
+        }
+    },
+    "last.externalTilesetPath": "C:/MyGames/pythonGame/assets/background/tilesets_success",
+    "last.imagePath": "C:/MyGames/pythonGame/assets/assetPack/character and tileset",
+    "map.fixedSize": true,
+    "map.height": 38,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 80,
+    "openFiles": [
+    ],
+    "project": "basic_room_tileset.tsx.tiled-project",
+    "recentFiles": [
+        "thisisit.tmx",
+        "level1c_map.tmx",
+        "level1_basic.tsx",
+        "realgoodmap.tmx",
+        "Dungeon_Tileset_main.tsx",
+        "level1b_map.tmx",
+        "level1_map.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    },
+    "tileset.transparentColor": "#808080",
+    "tileset.useTransparentColor": false
+}
