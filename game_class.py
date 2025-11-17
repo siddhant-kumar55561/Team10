@@ -605,19 +605,13 @@ class LevelTransition(arcade.Sprite):
 
     def switch_level(self, game, target_list):
         if self.collides_with_list(target_list) and len(game.map_handler.maps) > 1:
-            MapHandler.player_spawn_points[game.mapN].remove(game.player_spawn_pos)
             game.setup()
-
-    def clean_up_maps(self, game):
-        if not (MapHandler.maps[game.mapN]):
-            MapHandler.maps.remove(game.mapN)
 
     def update(self, delta_time, target_list, game):
         self.update_spatial_hash()
         self.sync_hit_box_to_texture()
         self.update_animation(delta_time)
         self.switch_level(game, target_list)
-        self.clean_up_maps(game)
 
 
 
@@ -698,10 +692,11 @@ class GameView(arcade.View):
         if x != self.old_print1:
             print(x)
             self.old_print1 = x
+            print(MapHandler.maps)
         
         
 
-        printTileIndex(self)
+        #printTileIndex(self)
         #for enemy in self.enemy_list:
         #    print(enemy.vitality_system.health)
         #print(self.ball.holder.direction_x)
@@ -728,21 +723,13 @@ class GameView(arcade.View):
         
         # Map/Scene init
         self.map_handler = MapHandler()
-
-        self.mapN = random.randint(0, len(MapHandler.maps) - 1)
-
-        self.map_current = MapHandler.maps[self.mapN]
-        self.map_handler.load(self.map_current)
-        self.scene = self.map_handler.scene
-        
-        for map in MapHandler.maps:
-            if len(MapHandler.player_spawn_points[self.mapN]) <= 1:
-                MapHandler.maps.remove(map)
-
+        self.mapN = random.randint(0, len(self.map_handler.maps) - 1)
+        self.map_handler.load(self.map_handler.maps[self.mapN])
         spawnN = random.randint(0, len(MapHandler.player_spawn_points[self.mapN]) - 1)
-        
+
         self.player_spawn_pos = MapHandler.player_spawn_points[self.mapN][spawnN]
         self.player_spawn_pos_tile = tileConvert(self.player_spawn_pos)
+        self.scene = self.map_handler.scene
 
         # Player
         self.player = Player((self.player_spawn_pos_tile), texture_files.player_textures)
