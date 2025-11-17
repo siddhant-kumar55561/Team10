@@ -79,10 +79,30 @@ skeleton_textures = {
         arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\skeleton\right\skeleton2_v1_4.png")
     ],
             "idle_left" :[
-        
         arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\skeleton\left\skeleton2_v1_1.png"),
         arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\skeleton\left\skeleton2_v1_2.png"),
         arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\skeleton\left\skeleton2_v1_3.png"),
         arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\skeleton\left\skeleton2_v1_4.png")
     ]
+}
+
+skeleton_textures_gold = {
+            "idle_left" :[
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\goldSkeleton\left\skeleton2_v1_1.png"),
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\goldSkeleton\left\skeleton2_v1_2.png"),
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\goldSkeleton\left\skeleton2_v1_3.png"),
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\goldSkeleton\left\skeleton2_v1_4.png")
+    ],
+            "idle_right" :[
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\goldSkeleton\right\skeleton2_v1_1.png"),
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\goldSkeleton\right\skeleton2_v1_2.png"),
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\goldSkeleton\right\skeleton2_v1_3.png"),
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\goldSkeleton\right\skeleton2_v1_4.png")
+    ]
+}
+
+level_transition_textures = {
+            "basic" :[
+        arcade.load_texture(r"C:\MyGames\pythonGame\assets\myAssetPack\levelTransition\levelTransition1.png")
+        ]   
 }
